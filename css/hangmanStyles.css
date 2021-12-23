@@ -23,6 +23,14 @@ background-color: whitesmoke;
     
       /* justify-content: space-around; */
   }
+  #wordInit{
+    display:flex;
+    align-items: flex-end;
+  }
+  #try{
+    display:flex;
+
+  }
   #categories{
       font-family: 'Architects Daughter', cursive;
       align-content: center;
@@ -38,6 +46,19 @@ background-color: whitesmoke;
       font-size: 30px;
       border: solid;
       margin: 2%;
+      text-align: center;
+    }
+    .wordDisplay{
+      width: 50px;
+      height: 50px;
+      display: flex;
+      display: inline;
+      background-color : pink;
+      font-family: 'Architects Daughter', cursive;
+      font-size: 30px;
+      border: solid;
+      margin: 3%;
+      text-align: center;
     }
 
 #hint {

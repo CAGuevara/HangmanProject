@@ -1,41 +1,46 @@
 // test 1 
 const alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-// let showClue = document.getElementById("clue");
 const showClue = document.querySelector("#clue");
 const alphaContainer = document.querySelector("#alphaContainer");
 const playAgain = document.querySelector("#playAgain");
 const category = document.querySelector("#categories");
+const wordInit = document.querySelector("#wordInit");
+let getWordArray = [];
+
+// ================ Printing the Alphabet ================
 
 alphabet.forEach(letter => {
-
+    let alpha = document.createElement("div");
+    alpha.setAttribute("class","letter");
+    alpha.innerText=letter.toUpperCase();
+    alphaContainer.appendChild(alpha);
 })
-
 
 let occupations =[
     {
-    name : "Librarian",
-    Hint : "Works at a Library",
-    cat : "Occupations"
+        name : "Librarian",
+        hint : "Works at a Library",
+        cat : "Occupations"
     },
     {
-    name : "Newscaster",
-    hint : "reads news",
-    cat : "Occupations"    
+        name : "Newscaster",
+        hint : "reads news",
+        cat : "Occupations"    
     },
     {
-    name : 'Flight Attendant',
-    hint : 'works on the air',
-    cat : "Occupations"
+        name : 'Flight Attendant',
+        hint : 'works on the air',
+        cat : "Occupations"
     },
     {
-    name :"Reporter",
-    hint : "Cover News",
-    cat : "Occupations"
+        name :"Reporter",
+        hint : "Cover News",
+        cat : "Occupations"
     },
     {
-    name: "Waiter",
-    hint : 'Works at a restaurant',
-    cat : "Occupations"
+        name: "Waiter",
+        hint : 'Works at a restaurant',
+        cat : "Occupations"
     }
 ]
 let animals = [
@@ -68,9 +73,9 @@ let animals = [
 
 let famousCharacters = [
     {
-       name : 'Groot',
-       hint : 'Bradley Cooper',
-       cat : "famous Characters"
+        name : 'Groot',
+        hint : 'Bradley Cooper',
+        cat : "famous Characters"
     },
     {
         name : 'Edna Mode',
@@ -88,44 +93,61 @@ let famousCharacters = [
         cat : "famous Characters"
     }
 ]
+
+
 const categories = [occupations,animals,famousCharacters];
-// console.log(occupations[1]);
 
-let final = getWord();
-category.textContent = final.cat;
-console.log(final.name);
-console.log(final.hint);
-console.log(final.cat);
-
-hint.onclick = function(){
-    showClue.innerHTML=`${final.hint}`;  
-    hint.style.visibility ="hidden"; 
-};
-
-
-
-playAgain.onclick = function(){
-    // console.log(getWord());
-    final = getWord();
-    showClue.innerHTML = " ";
-    // console.log(final)
-    hint.style.visibility ="visible";
-    category.textContent = final.cat;
-  
-}
-
+// ============== GET RANDOM WORD TO PLAY ==============
 function getRandom (max){
     return Math.floor(Math.random()* max);
 }
 
 function getWord () {
     const randomCat = getRandom(categories.length);
-    console.log(randomCat);
     const randomSub = getRandom(categories[randomCat].length);
     const guessWord = categories[randomCat][randomSub];
     return guessWord;
 }
 
+// ==============  ==============
+let final = getWord();
+let wordToGuess = getWord(); 
+category.textContent = wordToGuess.cat;
+let displayWord = wordToGuess.name;
+getWordArray = displayWord.split("")
+showingWord(getWordArray);
 
+// ============== SHOWING THE WORDS SPACES ==============
+function showingWord(getWordArray){
+    getWordArray.forEach(letterDisplay => {
+        let wordVis = document.createElement("div");
+        wordVis.setAttribute("class","wordDisplay");
+        wordVis.innerText=letterDisplay.toUpperCase();
+        wordInit.appendChild(wordVis);
+    })
+}
+// ============== CLEAN ARRAY ==============
+function cleanUpWordArray(){
+    getWordArray = [];
+}
 
+// ============== HINT ==============
+hint.onclick = function(){
+    showClue.innerText=`Hint : ${wordToGuess.hint}`;  
+    hint.style.visibility ="hidden"; 
+};
 
+// ============== PLAY AGAIN ==============
+playAgain.onclick = function(){
+    wordToGuess = getWord();
+    showClue.innerText = " ";
+    hint.style.visibility ="visible";
+    category.textContent = wordToGuess.cat;
+    // console.log(showingWord(getWordArray));
+    // if(getWordArray.length){
+    //     cleanUpWordArray(); 
+    // }
+    // else{
+    //     showingWord(getWordArray);
+    // }
+};
